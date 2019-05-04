@@ -22,7 +22,8 @@ if(isset($_REQUEST["register"]))
         		         window.location='login.php'
         		     }, 3000);
         		         </script>
-    <?php } 
+    <?php
+ } 
     
 }
 
