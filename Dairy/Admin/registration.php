@@ -1,4 +1,32 @@
-<?php include_once("connection.php");?>
+<?php include_once("connection.php");
+
+if(isset($_REQUEST["register"]))
+{
+   move_uploaded_file($_FILES["image"]["tmp_name"],"img/".$_FILES["image"]["name"]);
+    $fnam = $_FILES["image"]["name"]; 
+    
+  
+   /*  if (move_uploaded_file($_FILES['image']['tmp_name'], __DIR__.'/img/'. $_FILES["image"]['name'])) {
+        echo "Uploaded";
+    } else {
+        echo "File was not uploaded";
+    } */
+    
+     $i = "insert into login_tb(username,password,email,img) values('$_REQUEST[username]','$_REQUEST[password]','$_REQUEST[email]','$fnam')";
+    
+    if($con->query($i)==TRUE)
+    {
+        		     echo "<center><font color=blue size=5>Registration Complete!!</font></center>";?>
+        		     <script type="text/javascript">
+        		     var timer = setTimeout(function() {
+        		         window.location='login.php'
+        		     }, 3000);
+        		         </script>
+    <?php } 
+    
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,63 +67,47 @@
         
     <div class="row">
         <div class="col-md-12 center login-header">
-            <h2>Welcome to Admin/Seller Panel</h2>
+            <h2>Create your seller account</h2>
         </div>
         <!--/span-->
     </div><!--/row-->
 
     <div class="row">
         <div class="well col-md-5 center login-box">
-            <div class="alert alert-info">
-                Please login with your Username and Password.
-            </div>
-            <form class="form-horizontal" method="post">
+           
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
                 <fieldset>
+                <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope red"></i></span>
+                        <input type="email" class="form-control" placeholder="Email" name="email" required="required">
+                    </div>
+                    <div class="clearfix"></div><br>
+                
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
-                        <input type="text" class="form-control" placeholder="Username" name="t1">
+                        <input type="text" class="form-control" placeholder="Username" name="username">
                     </div>
                     <div class="clearfix"></div><br>
 
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
-                        <input type="password" class="form-control" placeholder="Password" name="t2">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
                     </div>
                     <div class="clearfix"></div>
-
+<br>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+                        <input type="file" class="form-control" placeholder="File" name="image">
+                    </div>
+                    <div class="clearfix"></div>
+                 
                     <p class="center col-md-5">
-                        <button type="submit" class="btn btn-primary" name="sub1">Login</button>
+                        <button type="submit" class="btn btn-primary" name="register">Create Account</button>
                     </p>
-                    <a href="registration.php"><p>Create Account</p></a>
+                                        <a href="login.php"><p>Login</p></a>
                 </fieldset>
             </form>
-			<?php 
-			if(isset($_REQUEST["sub1"]))
-			{
-			  $s = "select * from login_tb where username = '$_REQUEST[t1]' and password = '$_REQUEST[t2]'";
-			  $r = $con->query($s);
-			   
-			   if(mysqli_num_rows($r)> 0)
-			   {
-			      foreach($r as $v)
-				  {
-				     session_start();
-					 $_SESSION["login"] = $_REQUEST["t1"];
-					 $_SESSION["img"] = $v["img"];
-					 $_SESSION["date"] = $v["date"];
-					 $_SESSION["role"] = $v["role"];
-					 $_SESSION["id"] = $v["id"];
-					 
-					 header("location:index.php");
-				  }
-			   }
-			   else
-			   {
-			     echo "<center><font color =blue>Invalid Username Or Password..!!</font></center>";
-			   }
-			  
-			}
-			?>
+		
         </div>
         <!--/span-->
     </div><!--/row-->
