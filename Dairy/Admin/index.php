@@ -87,7 +87,12 @@ include_once("connection.php");
             <div>Product</div>
             <div>
 			<?php 
-			$a = "select count(p_id) as P from packing_tb";
+			if($_SESSION['role']=="Admin"){
+			     $a = "select count(p_id) as P from packing_tb";
+			}else{
+			    $id=$_SESSION["id"];
+			     $a = "select count(p_id) as P from packing_tb,sub_category_tb,category_tb where packing_tb.s_id=sub_category_tb.s_id and sub_category_tb.c_id=category_tb.c_id and category_tb.user_id=$id";
+			}
 			$r = $con->query($a);
 			foreach($r as $v);
 			echo $v['P'];?>
@@ -101,7 +106,12 @@ include_once("connection.php");
 
             <div>Order</div>
             <div><?php 
+            if($_SESSION['role']=="Admin"){
 			$a = "select count(od_id) as O from order_tb";
+            }else{
+                $id=$_SESSION["id"];
+                $a = "select  count(od_id)  as O from packing_tb,sub_category_tb,category_tb,order_tb where order_tb.p_id=packing_tb.p_id and packing_tb.s_id=sub_category_tb.s_id and sub_category_tb.c_id=category_tb.c_id and category_tb.user_id=$id";
+            }
 			$r = $con->query($a);
 			foreach($r as $v);
 			echo $v['O'];?></div>

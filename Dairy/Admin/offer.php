@@ -130,7 +130,16 @@ include_once("connection.php");?>
     </thead>
     <tbody>
 	<?php
-	$a = "select * from offer_tb";
+	
+	if($_SESSION['role']=="Admin"){
+	    $a = "select * from offer_tb";
+	}
+	else{
+	    $id=$_SESSION["id"];
+	    $a = "select * from offer_tb where user_id=$id";
+	    
+	}
+
 	$b =$con->query($a);
 	foreach($b as $c)
 	{
@@ -166,8 +175,9 @@ include_once("connection.php");?>
 			
 				move_uploaded_file($_FILES["t3"]["tmp_name"],"img/".$_FILES["t3"]["name"]);
   				$fnam = $_FILES["t3"]["name"];
-	
-				$i = "insert into offer_tb(o_title,o_descr,o_img)values('$_POST[t1]','$_POST[t2]','$fnam')";
+
+  				$id=$_SESSION["id"];
+				$i = "insert into offer_tb(user_id,o_title,o_descr,o_img)values($id,'$_POST[t1]','$_POST[t2]','$fnam')";
 			 
 				if($con->query($i)==TRUE)
 				{

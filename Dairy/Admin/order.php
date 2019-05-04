@@ -115,7 +115,12 @@ include_once("connection.php");
 	
     <tbody>
 	<?php
-	$a = "select * from order_tb,packing_tb,sub_category_tb,category_tb where order_tb.p_id = packing_tb.p_id and packing_tb.s_id =sub_category_tb.s_id and sub_category_tb.c_id = category_tb.c_id";
+	if($_SESSION['role']=="Admin"){
+	       $a = "select * from order_tb,packing_tb,sub_category_tb,category_tb where order_tb.p_id = packing_tb.p_id and packing_tb.s_id =sub_category_tb.s_id and sub_category_tb.c_id = category_tb.c_id";
+	}else{
+	    $id=$_SESSION["id"];
+	    $a = "select * from order_tb,packing_tb,sub_category_tb,category_tb where order_tb.p_id = packing_tb.p_id and packing_tb.s_id =sub_category_tb.s_id and sub_category_tb.c_id = category_tb.c_id and user_id=$id";
+	}
 	$b =$con->query($a);
 	foreach($b as $c)
 	{
