@@ -1,0 +1,1 @@
+<?php $con = new mysqli("localhost","root","root","dairy_db"); ?>
