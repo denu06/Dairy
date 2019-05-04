@@ -98,7 +98,7 @@ if(!isset($_SESSION["user"]))
 	<?php } } ?>
 	<tr align="right">
 	<?php
-	$x = "select sum(o_total)as T from order_tb  where u_email = '$_SESSION[user]'";
+	$x = "select sum(o_total)as T from order_tb  where o_status='Active' and u_email = '$_SESSION[user]'";
 	$x1 = $con->query($x);
 	foreach($x1 as $x2);
 	?>
