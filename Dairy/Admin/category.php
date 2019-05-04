@@ -151,8 +151,8 @@ include_once("connection.php");
 				
 				move_uploaded_file($_FILES["t2"]["tmp_name"],"img/".$_FILES["t2"]["name"]);
   				$fnam = $_FILES["t2"]["name"];
-	
-				$i = "insert into category_tb(c_name,c_img)values('$_POST[t1]','$fnam')";
+  				$id=$_SESSION["id"];
+				$i = "insert into category_tb(user_id,c_name,c_img) values($id,'$_POST[t1]','$fnam')";
 			 
 				if($con->query($i)==TRUE)
 				{

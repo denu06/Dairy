@@ -93,7 +93,15 @@ include_once("connection.php");
                         <select name="t1" class="form-control">
 						<option>--Select Category--</option>
 						<?php
+						if($_SESSION['role']=="Admin"){
 						$x = "select * from category_tb";
+						}
+						else{
+						    $id=$_SESSION["id"];
+						    $x = "select * from category_tb where user_id=$id";
+						    
+						}
+						
 						$y = $con->query($x);
 						foreach($y as $z)
 						{
@@ -138,7 +146,14 @@ include_once("connection.php");
 	
     <tbody>
 	<?php
-	$a = "select * from sub_category_tb,category_tb where category_tb.c_id = sub_category_tb.c_id";
+	if($_SESSION['role']=="Admin"){
+	    $a = "select * from sub_category_tb,category_tb where category_tb.c_id = sub_category_tb.c_id";
+	}
+	else{
+	    $id=$_SESSION["id"];
+	    $a = "select * from sub_category_tb,category_tb where category_tb.c_id = sub_category_tb.c_id and user_id=$id";
+	    
+	}
 	$b =$con->query($a);
 	foreach($b as $c)
 	{

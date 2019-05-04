@@ -56,7 +56,13 @@ include_once("connection.php");
             <a href="#">Dashboard</a>
         </li>
     </ul>
+    
 </div>
+
+   <?php 
+    if($_SESSION['role']=="Admin")
+    {
+    ?>
 		<div class="col-md-3 col-sm-3 col-xs-6">
         <a data-toggle="tooltip"  class="well top-block" href="#">
             <i class="glyphicon glyphicon-user blue"></i>
@@ -72,6 +78,7 @@ include_once("connection.php");
             
         </a>
     </div>
+	<?php }?>
 	
 	<div class="col-md-3 col-sm-3 col-xs-6">
         <a data-toggle="tooltip" class="well top-block" href="#">
@@ -102,6 +109,10 @@ include_once("connection.php");
         </a>
     </div>
 
+   <?php 
+                       if($_SESSION['role']=="Admin")
+                       {
+                       ?>
     <div class="col-md-3 col-sm-3 col-xs-6">
         <a data-toggle="tooltip"  class="well top-block" href="#">
             <i class="glyphicon glyphicon-envelope red"></i>
@@ -117,6 +128,9 @@ include_once("connection.php");
             
         </a>
     </div>
+    
+    <?php }?>
+    
 	</div>
 	<center><img src="img/main_menu_prod.jpg" align="center" style="height:60%;width:60%"/></center>
 

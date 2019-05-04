@@ -99,7 +99,14 @@ $img = $c["s_img"];
                         <select name="t1" class="form-control" value="<?php echo $c["c_id"];?>">
 						<option value="0">--Select--</option>
 						<?php
-						$x = "select * from category_tb";
+						if($_SESSION['role']=="Admin"){
+						    $x = "select * from category_tb";
+						}
+						else{
+						    $id=$_SESSION["id"];
+						    $x = "select * from category_tb where user_id=$id";
+						    
+						}
 						$y = $con->query($x);
 						foreach($y as $z)
 						{

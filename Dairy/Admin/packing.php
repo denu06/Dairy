@@ -141,7 +141,14 @@ function cal()
                         <select name="ttt" class="form-control" onChange="showUser(this.value)">
 						<option>--Select Category--</option>
 						<?php
-						$x = "select * from category_tb";
+						if($_SESSION['role']=="Admin"){
+						    $x = "select * from category_tb";
+						}
+						else{
+						    $id=$_SESSION["id"];
+						    $x = "select * from category_tb where user_id=$id";
+						    
+						}
 						$y = $con->query($x);
 						foreach($y as $z)
 						{

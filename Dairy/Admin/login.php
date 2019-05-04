@@ -82,6 +82,8 @@
 					 $_SESSION["login"] = $_REQUEST["t1"];
 					 $_SESSION["img"] = $v["img"];
 					 $_SESSION["date"] = $v["date"];
+					 $_SESSION["role"] = $v["role"];
+					 $_SESSION["id"] = $v["id"];
 					 
 					 header("location:index.php");
 				  }
